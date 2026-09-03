@@ -1,0 +1,530 @@
+@import "tailwindcss";
+
+/* 
+ * ==============================================================================
+ * MONOGLASS AUTHORITY GUIDE & SPECIFICATION BUILDER - PRINT & PREVIEW STYLESHEET
+ * ==============================================================================
+ * Formats Technical Guide and CSI Spec Builder sections for crisp, ink-friendly
+ * black & white / greyscale PDF and paper printing. Also powers interactive
+ * Print Preview mode.
+ */
+
+@page {
+  size: letter portrait;
+  margin: 12mm 15mm 15mm 15mm;
+}
+
+@media screen {
+  /* Hide print-only elements by default on screen when NOT in print preview mode */
+  body:not(.print-preview-active) .print-only,
+  :not(.print-preview-active) > * > .print-only {
+    display: none !important;
+  }
+}
+
+/* ==============================================================================
+ * SHARED PRINT RULES (Applies in real window.print() AND in .print-preview-active)
+ * ============================================================================== */
+
+@media print {
+  /* Hide all interactive, navigation, and modal chrome */
+  header,
+  footer.no-print,
+  nav,
+  .no-print,
+  .print-hide,
+  .print\:hidden,
+  button:not(.allow-print),
+  input[type="range"],
+  input[type="checkbox"],
+  select,
+  .modal-backdrop,
+  [role="dialog"] {
+    display: none !important;
+  }
+
+  /* Show dedicated print-only elements */
+  .print-only {
+    display: block !important;
+  }
+
+  .print-flex {
+    display: flex !important;
+  }
+
+  /* Base Document Reset for Crisp High-Contrast Paper/PDF Output */
+  *,
+  *::before,
+  *::after {
+    box-shadow: none !important;
+    text-shadow: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+
+  html,
+  body,
+  #root,
+  .min-h-screen {
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    color: #0f172a !important;
+    font-size: 10.5pt !important;
+    line-height: 1.45 !important;
+    height: auto !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  main {
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+
+  /* Reset Dark Background Surfaces to Clean White/Light Neutral */
+  .bg-slate-950,
+  .bg-slate-900,
+  .bg-slate-900\/90,
+  .bg-slate-900\/80,
+  .bg-slate-900\/60,
+  .bg-slate-900\/50,
+  .bg-slate-800,
+  .bg-slate-800\/80,
+  .bg-slate-800\/70,
+  .bg-slate-800\/50,
+  .bg-slate-800\/40,
+  .bg-slate-950\/70,
+  .bg-gradient-to-b,
+  .bg-gradient-to-r,
+  .bg-gradient-to-br {
+    background-color: #ffffff !important;
+    background-image: none !important;
+  }
+
+  /* Convert borders to clean crisp light greys */
+  .border,
+  .border-slate-800,
+  .border-slate-800\/80,
+  .border-slate-800\/90,
+  .border-slate-700,
+  .border-slate-700\/80,
+  .border-slate-700\/60 {
+    border-color: #cbd5e1 !important;
+  }
+
+  /* High Legibility Typography Colors */
+  .text-white,
+  .text-slate-100,
+  .text-slate-200,
+  .text-slate-300 {
+    color: #0f172a !important;
+  }
+
+  .text-slate-400,
+  .text-slate-500 {
+    color: #334155 !important;
+  }
+
+  .text-sky-400,
+  .text-sky-300,
+  .text-sky-200 {
+    color: #0369a1 !important;
+  }
+
+  .text-indigo-400,
+  .text-indigo-300,
+  .text-indigo-200 {
+    color: #4338ca !important;
+  }
+
+  .text-emerald-400,
+  .text-emerald-300 {
+    color: #047857 !important;
+  }
+
+  .text-rose-400,
+  .text-rose-300 {
+    color: #be123c !important;
+  }
+
+  .text-transparent {
+    color: #0f172a !important;
+    -webkit-text-fill-color: #0f172a !important;
+  }
+
+  /* Clean badges & pill highlights */
+  .bg-sky-500\/10,
+  .bg-sky-500\/20,
+  .bg-emerald-500\/10,
+  .bg-emerald-500\/20,
+  .bg-indigo-500\/10,
+  .bg-indigo-500\/20,
+  .bg-teal-500\/10,
+  .bg-amber-500\/20 {
+    background-color: #f1f5f9 !important;
+    border-color: #94a3b8 !important;
+  }
+
+  /* Table Formatting for Print */
+  table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    page-break-inside: auto !important;
+    break-inside: auto !important;
+    font-size: 9.5pt !important;
+    margin: 10px 0 !important;
+  }
+
+  thead {
+    display: table-header-group !important;
+    background-color: #f1f5f9 !important;
+  }
+
+  tr {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  th,
+  td {
+    border: 1px solid #cbd5e1 !important;
+    padding: 6px 10px !important;
+    color: #0f172a !important;
+    background-color: #ffffff !important;
+  }
+
+  th {
+    background-color: #f8fafc !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+  }
+
+  /* Page Break Hygiene */
+  h1, h2, h3, h4, .section-title {
+    page-break-after: avoid !important;
+    break-after: avoid !important;
+    color: #0f172a !important;
+  }
+
+  section {
+    page-break-inside: auto !important;
+    break-inside: auto !important;
+    margin-bottom: 24px !important;
+    padding: 16px !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 8px !important;
+  }
+
+  .avoid-break,
+  .card,
+  .grid > div {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  /* Spec Builder Full Width & Unbounded Height Optimization */
+  .spec-grid-layout {
+    display: block !important;
+  }
+
+  .spec-config-sidebar {
+    display: none !important;
+  }
+
+  .spec-viewer-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    border: none !important;
+    padding: 0 !important;
+  }
+
+  .spec-code-block {
+    max-height: none !important;
+    height: auto !important;
+    overflow: visible !important;
+    white-space: pre-wrap !important;
+    background-color: #ffffff !important;
+    color: #0f172a !important;
+    border: 1px solid #94a3b8 !important;
+    border-radius: 6px !important;
+    padding: 18px !important;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important;
+    font-size: 9.5pt !important;
+    line-height: 1.45 !important;
+    page-break-inside: auto !important;
+    break-inside: auto !important;
+  }
+
+  /* Print Header & Footer Document Metadata */
+  .print-document-header {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding-bottom: 12px !important;
+    margin-bottom: 16px !important;
+    border-bottom: 2px solid #0f172a !important;
+  }
+
+  .print-document-footer {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding-top: 10px !important;
+    margin-top: 20px !important;
+    border-top: 1px solid #94a3b8 !important;
+    font-size: 8.5pt !important;
+    color: #64748b !important;
+  }
+
+  /* Dedicated Print QR Code Footer Box */
+  .print-qr-footer {
+    display: block !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    margin-top: 24px !important;
+    padding: 14px 18px !important;
+    border: 1.5px solid #0f172a !important;
+    border-radius: 8px !important;
+    background-color: #f8fafc !important;
+  }
+
+  .print-qr-footer svg {
+    display: block !important;
+  }
+}
+
+/* ==============================================================================
+ * IN-BROWSER PRINT PREVIEW MODE (Screen Simulation)
+ * ============================================================================== */
+
+.print-preview-active {
+  background-color: #0b0f19 !important;
+}
+
+.print-preview-active .print-preview-container {
+  max-width: 900px !important;
+  margin: 24px auto 48px auto !important;
+  padding: 0 !important;
+}
+
+.print-preview-active .print-preview-sheet {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  padding: 36px 44px !important;
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.1) !important;
+  border-radius: 6px !important;
+  min-height: 1050px !important;
+  position: relative !important;
+}
+
+.print-preview-active .print-preview-sheet.show-paper-guides {
+  outline: 2px dashed #94a3b8 !important;
+  outline-offset: -16px !important;
+}
+
+/* Show print-only elements in preview */
+.print-preview-active .print-only {
+  display: block !important;
+}
+
+.print-preview-active .print-flex {
+  display: flex !important;
+}
+
+/* Hide normal screen items in preview mode (except the preview toolbar) */
+.print-preview-active .no-print:not(#print-preview-toolbar):not(#print-preview-toolbar *) {
+  display: none !important;
+}
+
+/* Convert all internal containers to print-compliant white and light-neutral */
+.print-preview-active .print-preview-sheet .bg-slate-950,
+.print-preview-active .print-preview-sheet .bg-slate-900,
+.print-preview-active .print-preview-sheet .bg-slate-900\/90,
+.print-preview-active .print-preview-sheet .bg-slate-900\/80,
+.print-preview-active .print-preview-sheet .bg-slate-900\/60,
+.print-preview-active .print-preview-sheet .bg-slate-900\/50,
+.print-preview-active .print-preview-sheet .bg-slate-800,
+.print-preview-active .print-preview-sheet .bg-slate-800\/80,
+.print-preview-active .print-preview-sheet .bg-slate-800\/70,
+.print-preview-active .print-preview-sheet .bg-slate-800\/50,
+.print-preview-active .print-preview-sheet .bg-slate-800\/40,
+.print-preview-active .print-preview-sheet .bg-slate-950\/70,
+.print-preview-active .print-preview-sheet .bg-gradient-to-b,
+.print-preview-active .print-preview-sheet .bg-gradient-to-r,
+.print-preview-active .print-preview-sheet .bg-gradient-to-br {
+  background-color: #ffffff !important;
+  background-image: none !important;
+}
+
+.print-preview-active .print-preview-sheet .border,
+.print-preview-active .print-preview-sheet .border-slate-800,
+.print-preview-active .print-preview-sheet .border-slate-800\/80,
+.print-preview-active .print-preview-sheet .border-slate-800\/90,
+.print-preview-active .print-preview-sheet .border-slate-700,
+.print-preview-active .print-preview-sheet .border-slate-700\/80,
+.print-preview-active .print-preview-sheet .border-slate-700\/60 {
+  border-color: #cbd5e1 !important;
+}
+
+.print-preview-active .print-preview-sheet .text-white,
+.print-preview-active .print-preview-sheet .text-slate-100,
+.print-preview-active .print-preview-sheet .text-slate-200,
+.print-preview-active .print-preview-sheet .text-slate-300 {
+  color: #0f172a !important;
+}
+
+.print-preview-active .print-preview-sheet .text-slate-400,
+.print-preview-active .print-preview-sheet .text-slate-500 {
+  color: #334155 !important;
+}
+
+.print-preview-active .print-preview-sheet .text-sky-400,
+.print-preview-active .print-preview-sheet .text-sky-300,
+.print-preview-active .print-preview-sheet .text-sky-200 {
+  color: #0369a1 !important;
+}
+
+.print-preview-active .print-preview-sheet .text-indigo-400,
+.print-preview-active .print-preview-sheet .text-indigo-300,
+.print-preview-active .print-preview-sheet .text-indigo-200 {
+  color: #4338ca !important;
+}
+
+.print-preview-active .print-preview-sheet .text-emerald-400,
+.print-preview-active .print-preview-sheet .text-emerald-300 {
+  color: #047857 !important;
+}
+
+.print-preview-active .print-preview-sheet .text-rose-400,
+.print-preview-active .print-preview-sheet .text-rose-300 {
+  color: #be123c !important;
+}
+
+.print-preview-active .print-preview-sheet .text-transparent {
+  color: #0f172a !important;
+  -webkit-text-fill-color: #0f172a !important;
+}
+
+.print-preview-active .print-preview-sheet .bg-sky-500\/10,
+.print-preview-active .print-preview-sheet .bg-sky-500\/20,
+.print-preview-active .print-preview-sheet .bg-emerald-500\/10,
+.print-preview-active .print-preview-sheet .bg-emerald-500\/20,
+.print-preview-active .print-preview-sheet .bg-indigo-500\/10,
+.print-preview-active .print-preview-sheet .bg-indigo-500\/20,
+.print-preview-active .print-preview-sheet .bg-teal-500\/10,
+.print-preview-active .print-preview-sheet .bg-amber-500\/20 {
+  background-color: #f1f5f9 !important;
+  border-color: #94a3b8 !important;
+}
+
+.print-preview-active .print-preview-sheet table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  font-size: 9.5pt !important;
+  margin: 10px 0 !important;
+}
+
+.print-preview-active .print-preview-sheet thead {
+  background-color: #f1f5f9 !important;
+}
+
+.print-preview-active .print-preview-sheet th,
+.print-preview-active .print-preview-sheet td {
+  border: 1px solid #cbd5e1 !important;
+  padding: 6px 10px !important;
+  color: #0f172a !important;
+  background-color: #ffffff !important;
+}
+
+.print-preview-active .print-preview-sheet th {
+  background-color: #f8fafc !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+}
+
+.print-preview-active .print-preview-sheet h1,
+.print-preview-active .print-preview-sheet h2,
+.print-preview-active .print-preview-sheet h3,
+.print-preview-active .print-preview-sheet h4,
+.print-preview-active .print-preview-sheet .section-title {
+  color: #0f172a !important;
+}
+
+.print-preview-active .print-preview-sheet section {
+  margin-bottom: 24px !important;
+  padding: 16px !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 8px !important;
+  background-color: #ffffff !important;
+}
+
+.print-preview-active .print-preview-sheet .spec-grid-layout {
+  display: block !important;
+}
+
+.print-preview-active .print-preview-sheet .spec-config-sidebar {
+  display: none !important;
+}
+
+.print-preview-active .print-preview-sheet .spec-viewer-container {
+  width: 100% !important;
+  max-width: 100% !important;
+  border: none !important;
+  padding: 0 !important;
+}
+
+.print-preview-active .print-preview-sheet .spec-code-block {
+  max-height: none !important;
+  height: auto !important;
+  overflow: visible !important;
+  white-space: pre-wrap !important;
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border: 1px solid #94a3b8 !important;
+  border-radius: 6px !important;
+  padding: 18px !important;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important;
+  font-size: 9.5pt !important;
+  line-height: 1.45 !important;
+}
+
+.print-preview-active .print-preview-sheet .print-document-header {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  padding-bottom: 12px !important;
+  margin-bottom: 16px !important;
+  border-bottom: 2px solid #0f172a !important;
+}
+
+.print-preview-active .print-preview-sheet .print-document-footer {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  padding-top: 10px !important;
+  margin-top: 20px !important;
+  border-top: 1px solid #94a3b8 !important;
+  font-size: 8.5pt !important;
+  color: #64748b !important;
+}
+
+.print-preview-active .print-preview-sheet .print-qr-footer {
+  display: block !important;
+  margin-top: 24px !important;
+  padding: 14px 18px !important;
+  border: 1.5px solid #0f172a !important;
+  border-radius: 8px !important;
+  background-color: #f8fafc !important;
+}
+
+.print-preview-active .print-preview-sheet .print-qr-footer svg {
+  display: block !important;
+}
+

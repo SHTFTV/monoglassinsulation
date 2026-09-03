@@ -1,0 +1,7 @@
+{
+  "name": "Monoglass Guide & Contractor Directory",
+  "description": "The authoritative guide for Monoglass spray-applied glass fiber insulation: technical data, R-value & acoustic calculators, CSI specifications, and verified spray contractor directory.",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
