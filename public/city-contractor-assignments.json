@@ -1,0 +1,39 @@
+{
+  "description": "Only explicitly assigned city pages show this provider. No default provider for new cities.",
+  "providers": {
+    "performance": {
+      "name": "Performance Spray Insulation",
+      "phone": "+17787794353",
+      "email": "insulatevancouver@gmail.com"
+    }
+  },
+  "cityAssignments": {
+    "/cities/delta/": "performance",
+    "/cities/coquitlam/": "performance",
+    "/cities/belcarra/": "performance",
+    "/cities/richmond/": "performance",
+    "/cities/bowen-island/": "performance",
+    "/cities/abbotsford/": "performance",
+    "/cities/harrison-hot-springs/": "performance",
+    "/cities/chilliwack/": "performance",
+    "/cities/kent/": "performance",
+    "/cities/mission/": "performance",
+    "/cities/pitt-meadows/": "performance",
+    "/cities/north-vancouver-city/": "performance",
+    "/cities/new-westminster/": "performance",
+    "/cities/vancouver/": "performance",
+    "/cities/maple-ridge/": "performance",
+    "/cities/white-rock/": "performance",
+    "/cities/langley-township/": "performance",
+    "/cities/port-coquitlam/": "performance",
+    "/cities/hope/": "performance",
+    "/cities/surrey/": "performance",
+    "/cities/west-vancouver/": "performance",
+    "/cities/north-vancouver-district/": "performance",
+    "/cities/burnaby/": "performance",
+    "/cities/langley-city/": "performance",
+    "/cities/anmore/": "performance",
+    "/cities/lions-bay/": "performance",
+    "/cities/port-moody/": "performance"
+  }
+}
