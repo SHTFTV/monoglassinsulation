@@ -1,0 +1,56 @@
+{
+  "archive": {
+    "path": "/images/wesprayit-monoglass-overhead-cleaned.jpg",
+    "alt": "White-grey fibrous Monoglass finish above exposed pipework",
+    "caption": "Monoglass overhead finish \u00b7 Source: WeSprayIt.ca \u00b7 annotation removed",
+    "source": "https://web.archive.org/web/20250326043216/https://wesprayit.ca/",
+    "title": "Overhead finish and building services",
+    "width": 1254,
+    "height": 1254,
+    "credit": "WeSprayIt.ca"
+  },
+  "stadium": {
+    "path": "/images/manufacturer/stadium-installation.jpg",
+    "alt": "Applicator on an elevated platform spraying white Monoglass beneath concrete stadium seating",
+    "caption": "U.S. Bank Stadium \u00b7 Monoglass manufacturer project reference",
+    "source": "https://monoglass.com/project-spotlight/",
+    "title": "Concrete undersides and access",
+    "width": 2330,
+    "height": 904,
+    "original": "https://monoglass.com/wp-content/uploads/2015/11/Viking-Sprayer-on-lift1-e1507843294102.jpg",
+    "credit": "Monoglass Incorporated"
+  },
+  "concourse": {
+    "path": "/images/manufacturer/daytona-concourse.jpg",
+    "alt": "Grey Monoglass applied to the overhead structure of a Daytona Speedway concourse",
+    "caption": "Daytona International Speedway \u00b7 Monoglass manufacturer project reference",
+    "source": "https://monoglass.com/project-spotlight/",
+    "title": "Grey finish and overhead structure",
+    "width": 640,
+    "height": 480,
+    "original": "https://monoglass.com/wp-content/uploads/2015/12/Daytona-Speedway-grey-1.jpg",
+    "credit": "Monoglass Incorporated"
+  },
+  "museum": {
+    "path": "/images/manufacturer/museum-acoustic-ceiling.jpg",
+    "alt": "Exposed charcoal Monoglass ceiling above a gallery at the Canadian Museum for Human Rights",
+    "caption": "Canadian Museum for Human Rights, Winnipeg \u00b7 Monoglass manufacturer reference",
+    "source": "https://monoglass.com/project-spotlight/",
+    "title": "Acoustic treatment in a gallery",
+    "width": 2048,
+    "height": 1536,
+    "original": "https://monoglass.com/wp-content/uploads/2015/12/Canadian-Museum-of-Human-Rights-Winnipeg-Gallery-2.jpg",
+    "credit": "Monoglass Incorporated"
+  },
+  "restaurant": {
+    "path": "/images/manufacturer/restaurant-ceiling.jpg",
+    "alt": "Charcoal Monoglass finish around overhead services at Brown\u2019s Social House in Victoria",
+    "caption": "Brown\u2019s Social House, Victoria \u00b7 Monoglass manufacturer project reference",
+    "source": "https://monoglass.com/project-spotlight/",
+    "title": "Exposed restaurant ceiling",
+    "width": 2560,
+    "height": 1920,
+    "original": "https://monoglass.com/wp-content/uploads/2015/11/Browns-Social-House-Victoria.jpg",
+    "credit": "Monoglass Incorporated"
+  }
+}

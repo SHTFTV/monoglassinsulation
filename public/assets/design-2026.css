@@ -5,3 +5,20 @@ header a.brand{color:var(--ink)}.hero-copy p.eyebrow{font-size:11px;letter-spaci
 .material-panel{background:#e7e7df;color:#242923;padding:clamp(28px,5vw,70px);display:flex;flex-direction:column;justify-content:center;min-width:0}.material-panel h2{font-size:clamp(30px,3.4vw,52px);margin:15px 0}.material-panel .eyebrow{color:#804429}.material-panel p{max-width:520px}.finish-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:28px 0;font-size:13px}.finish-swatch{display:block;height:90px;border:1px solid #b6b8ad;margin-bottom:10px}.finish-white{background:#f7f6f0}.finish-grey{background:#a4a6a3}.finish-charcoal{background:#353936}.material-panel .note{font-size:12px}.material-panel>a{font-size:14px}
 
 .verified-monoglass-photo{position:relative;margin:0;background:#252925}.verified-monoglass-photo img{display:block;width:100%;height:auto;object-fit:contain}.hero-media.verified-monoglass-photo{height:auto;display:flex;align-items:center}.verified-monoglass-photo figcaption{position:absolute;bottom:12px;left:12px;right:12px;width:fit-content;max-width:calc(100% - 24px);background:#171d19e8;color:#fff;padding:7px 10px;font-size:11px;line-height:1.5}.verified-project figure{max-width:760px}.hero-media.verified-monoglass-photo img{height:auto;object-fit:contain}
+
+/* Real material photographs, with source attribution retained at every use. */
+.material-photo{margin:28px 0;min-width:0}
+.material-photo img{display:block;width:100%;height:auto;max-height:570px;object-fit:contain;background:#e5e5dc}
+.material-photo figcaption{position:static;margin:0;padding:10px 0;font-size:12px;line-height:1.5;color:#555b50;letter-spacing:0;text-transform:none;font-weight:400}
+.material-photo figcaption a{text-decoration:underline}
+.material-lead{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,56px);align-items:center;margin:40px 0}
+.material-lead .material-photo{margin:0}.material-lead h2{margin-top:12px}.material-lead .note{font-size:13px}
+.material-project-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:36px 28px}
+.material-project-grid article{min-width:0}.material-project-grid .material-photo{margin:0}.material-project-grid img{aspect-ratio:4/3;object-fit:contain}
+.material-project-grid h3{font-size:23px;margin-top:12px}
+.material-photo--compact{margin:0 0 18px!important}.material-photo--compact img{width:100%;aspect-ratio:4/3;max-height:260px;object-fit:cover}
+.material-photo--compact figcaption{font-size:10px;line-height:1.45;padding:8px 0 0}
+.journal-card .material-photo--compact{margin:0 0 18px!important}.journal-card .material-photo--compact img{border-radius:0}
+@media(max-width:700px){.material-lead,.material-project-grid{grid-template-columns:1fr;gap:20px}.material-lead{margin:28px 0}.material-lead .material-photo img{max-height:440px}.material-project-grid{gap:32px}.material-photo img{max-height:440px}}
+
+.page-photo-explanation{display:block;margin-bottom:7px;font-size:13px;line-height:1.55}.material-photo--compact .page-photo-explanation{font-size:12px}
