@@ -22,3 +22,5 @@
 .business-floater.is-closed{top:auto;bottom:18px;transform:none;width:auto}
 .business-floater a:focus-visible,.business-floater button:focus-visible{outline:3px solid #ffcf47;outline-offset:3px}
 @media(max-width:600px){.business-floater{right:12px;top:auto;bottom:max(12px,env(safe-area-inset-bottom));transform:none;width:264px;max-width:calc(100vw - 24px)}.business-panel{padding:13px;max-height:calc(100dvh - 28px)}.business-name{font-size:17px}.business-action{padding:8px;margin-top:6px;min-height:44px}.business-area{margin-bottom:8px}.business-reviews{margin-top:8px}}
+
+.business-floater .business-name{letter-spacing:-.04em;color:#fff;font-family:system-ui,sans-serif}

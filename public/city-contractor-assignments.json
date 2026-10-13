@@ -1,5 +1,5 @@
 {
-  "description": "Only explicitly assigned city pages show this provider. No default provider for new cities.",
+  "description": "Explicit city and project-article assignments only. Performance project enquiries go directly to the contractor. General editorial pages retain IAM identity.",
   "providers": {
     "performance": {
       "name": "Performance Spray Insulation",
@@ -35,5 +35,9 @@
     "/cities/anmore/": "performance",
     "/cities/lions-bay/": "performance",
     "/cities/port-moody/": "performance"
+  },
+  "articleAssignments": {
+    "/blog/dorchester-house-new-westminster-monoglass-repair/": "performance",
+    "/blog/monoglass-patch-repair-owner-checklist/": "performance"
   }
 }
