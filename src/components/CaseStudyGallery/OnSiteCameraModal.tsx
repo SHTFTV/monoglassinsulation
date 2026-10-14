@@ -286,7 +286,7 @@ export const OnSiteCameraModal: React.FC<OnSiteCameraModalProps> = ({
   const calculatedRValue = (thicknessInches * 4.0).toFixed(1);
   const calculatedNrc = thicknessInches >= 3.0 ? 'NRC 1.00' : thicknessInches >= 2.0 ? 'NRC 0.95' : 'NRC 0.85';
 
-  // Handle final submission to User-Submitted category
+  // Save a browser-local draft; this does not upload, publish, or verify the photo.
   const handleFinalSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!capturedPhotoUrl) return;
@@ -310,38 +310,33 @@ export const OnSiteCameraModal: React.FC<OnSiteCameraModalProps> = ({
       finishType: finishType,
       substrate: substrate,
       yearCompleted: new Date().getFullYear(),
-      architectOrEngineer: contractorCompany || contractorName || 'Verified Spray Applicator',
-      contractorName: contractorName || 'On-Site Field Technician',
-      contractorCompany: contractorCompany || 'Certified Insulation Contractor',
-      submitterEmail: submitterEmail || 'contractor@jobsite.com',
-      submitterRole: 'Certified Contractor / Jobsite Applicator',
-      approvalStatus: 'pending', // Starts in pending review for moderation
+      architectOrEngineer: contractorCompany || contractorName || 'Not provided',
+      contractorName: contractorName || 'Not provided',
+      contractorCompany: contractorCompany || 'Not provided',
+      submitterEmail,
+      submitterRole: 'Browser-local draft',
+      approvalStatus: 'pending',
       submittedAt: new Date().toISOString(),
       jobsiteNotes: jobsiteNotes || undefined,
-      verifiedBadge: true,
+      verifiedBadge: false,
       challenge:
         challenge ||
-        `On-site installation required high-adhesion monolithic thermal R-${calculatedRValue} coverage and acoustic damping on ${substrate.toLowerCase()}.`,
+        'No challenge description was provided by the submitter.',
       solution:
         solution ||
-        `Sprayed ${thicknessInches.toFixed(1)}" Monoglass ${finishType} using certified high-output blower rigs with strict ASTM E605 pin-gauge depth verification.`,
+        'No installation-method description was provided by the submitter.',
       results: [
-        `Achieved continuous R-${calculatedRValue} thermal insulation with zero thermal bridging`,
-        `Delivered tested acoustic reverberation control (${calculatedNrc}) across ceiling envelope`,
-        `Certified ASTM E84 Class 1 / Class A flame spread 0, smoke developed 0`,
-        `Installed on-schedule by ${contractorCompany || 'certified spray crew'} with full substrate adhesion verification`,
+        'User-entered draft. Performance, product identity, measurements, and installation quality have not been independently verified.',
       ],
       keyFeatures: [
-        'On-site photo verification with jobsite timestamping',
-        'Direct substrate adhesion without mechanical pins',
-        'Inorganic glass fiber with zero fungal growth (ASTM C1338)',
-        'Monolithic monolithic coverage around pipes & MEP ducts',
+        'Stored only in this browser',
+        'Not uploaded, published, approved, or sent for review',
       ],
       imageUrl: capturedPhotoUrl,
       images: [
         {
           url: capturedPhotoUrl,
-          caption: `${finalTitle} - ${stage} photographed on-site by ${contractorName || 'Contractor'}`,
+          caption: `${finalTitle} - ${stage} photo saved by ${contractorName || 'site visitor'}`,
           stage: stage,
         },
       ],
@@ -843,9 +838,9 @@ export const OnSiteCameraModal: React.FC<OnSiteCameraModalProps> = ({
               </div>
 
               <div className="space-y-1">
-                <h3 className="text-xl font-bold text-white">Jobsite Photo Submitted!</h3>
+                <h3 className="text-xl font-bold text-white">Jobsite Draft Saved</h3>
                 <p className="text-xs text-slate-300 leading-relaxed">
-                  Your on-site installation has been added to the <strong>User-Submitted</strong> gallery category under pending verification. You can review or approve it immediately.
+                  This draft is stored only in this browser. It has not been uploaded, published, verified, approved, or sent for architectural review.
                 </p>
               </div>
 
@@ -865,7 +860,7 @@ export const OnSiteCameraModal: React.FC<OnSiteCameraModalProps> = ({
                   onClick={resetAndClose}
                   className="px-5 py-2.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 text-xs font-bold shadow-lg shadow-sky-500/20"
                 >
-                  View in Gallery
+                  View Local Draft
                 </button>
               </div>
             </div>

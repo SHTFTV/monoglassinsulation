@@ -11,9 +11,6 @@ import {
   FileDown,
   Building2,
   Camera,
-  Check,
-  X,
-  AlertCircle,
   Trash2,
 } from 'lucide-react';
 import { exportCaseStudyPdf } from '../../utils/pdfExport';
@@ -24,7 +21,6 @@ interface CaseStudyCardProps {
   onSelect: (cs: CaseStudy) => void;
   onRequestBid: (cs: CaseStudy) => void;
   onCalculateSimilar?: (cs: CaseStudy) => void;
-  onApprovalChange?: (csId: string, status: 'approved' | 'rejected' | 'pending') => void;
   onDelete?: (csId: string) => void;
 }
 
@@ -33,7 +29,6 @@ export const CaseStudyCard: React.FC<CaseStudyCardProps> = ({
   onSelect,
   onRequestBid,
   onCalculateSimilar,
-  onApprovalChange,
   onDelete,
 }) => {
   const { getEffectiveWatermark } = useSettings();
@@ -107,7 +102,11 @@ export const CaseStudyCard: React.FC<CaseStudyCardProps> = ({
               )}
             </span>
 
-            {caseStudy.approvalStatus && (
+            {caseStudy.category === 'user-submitted' ? (
+              <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider backdrop-blur-md border bg-amber-950/85 text-amber-300 border-amber-500/40">
+                Browser-Local Draft
+              </span>
+            ) : caseStudy.approvalStatus ? (
               <span
                 className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider backdrop-blur-md border ${
                   caseStudy.approvalStatus === 'approved'
@@ -123,7 +122,7 @@ export const CaseStudyCard: React.FC<CaseStudyCardProps> = ({
                   ? '⏳ Pending Review'
                   : '✕ Rejected'}
               </span>
-            )}
+            ) : null}
           </div>
 
           <div className="flex items-center gap-1.5 pointer-events-auto">
@@ -205,44 +204,22 @@ export const CaseStudyCard: React.FC<CaseStudyCardProps> = ({
           </div>
         </div>
 
-        {/* Quick Approval Action Bar if User-Submitted */}
-        {caseStudy.category === 'user-submitted' && onApprovalChange && (
+        {/* Browser-local drafts can be removed, but not self-approved or verified. */}
+        {caseStudy.category === 'user-submitted' && onDelete && (
           <div
             onClick={(e) => e.stopPropagation()}
             className="p-2 rounded-xl bg-slate-950 border border-slate-800/80 flex items-center justify-between gap-2 text-[11px]"
           >
-            <span className="text-slate-400 font-medium">Review Status:</span>
+            <span className="text-slate-400 font-medium">Stored only in this browser</span>
             <div className="flex items-center gap-1.5">
-              {caseStudy.approvalStatus !== 'approved' && (
-                <button
-                  type="button"
-                  onClick={() => onApprovalChange(caseStudy.id, 'approved')}
-                  className="px-2 py-1 rounded bg-emerald-500/20 hover:bg-emerald-500 text-emerald-400 hover:text-slate-950 font-bold flex items-center gap-1 transition-all"
-                  title="Approve submission for verified gallery"
-                >
-                  <Check className="w-3 h-3" /> Approve
-                </button>
-              )}
-              {caseStudy.approvalStatus !== 'rejected' && (
-                <button
-                  type="button"
-                  onClick={() => onApprovalChange(caseStudy.id, 'rejected')}
-                  className="px-2 py-1 rounded bg-rose-500/20 hover:bg-rose-500 text-rose-400 hover:text-slate-950 font-bold flex items-center gap-1 transition-all"
-                  title="Reject or request revisions"
-                >
-                  <X className="w-3 h-3" /> Reject
-                </button>
-              )}
-              {onDelete && (
-                <button
-                  type="button"
-                  onClick={() => onDelete(caseStudy.id)}
-                  className="p-1 rounded text-slate-500 hover:text-rose-400 transition-colors"
-                  title="Delete local submission"
-                >
-                  <Trash2 className="w-3 h-3" />
-                </button>
-              )}
+              <button
+                type="button"
+                onClick={() => onDelete(caseStudy.id)}
+                className="p-1 rounded text-slate-500 hover:text-rose-400 transition-colors"
+                title="Delete local draft"
+              >
+                <Trash2 className="w-3 h-3" />
+              </button>
             </div>
           </div>
         )}
