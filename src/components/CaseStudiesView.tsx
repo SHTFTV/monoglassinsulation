@@ -28,8 +28,6 @@ import {
   HelpCircle,
   X,
   Plus,
-  Check,
-  AlertCircle,
 } from 'lucide-react';
 import { exportCaseStudyPdf } from '../utils/pdfExport';
 import { useSettings } from '../context/SettingsContext';
@@ -68,7 +66,14 @@ export const CaseStudiesView: React.FC<CaseStudiesViewProps> = ({
       if (saved) {
         const parsed: CaseStudy[] = JSON.parse(saved);
         const existingIds = new Set(CASE_STUDIES.map((c) => c.id));
-        const customItems = parsed.filter((p) => !existingIds.has(p.id));
+        const customItems = parsed
+          .filter((p) => !existingIds.has(p.id))
+          .map((p) => ({
+            ...p,
+            approvalStatus: 'pending' as const,
+            verifiedBadge: false,
+            submitterRole: 'Browser-local draft',
+          }));
         return [...customItems, ...CASE_STUDIES];
       }
     } catch (e) {
@@ -127,23 +132,7 @@ export const CaseStudiesView: React.FC<CaseStudiesViewProps> = ({
     persistCaseStudies(updated);
     setSelectedCategory('user-submitted');
     setIsCameraModalOpen(false);
-    showToast(`✓ Field photo "${newCs.title}" submitted to gallery!`);
-  };
-
-  // Handle approval state change
-  const handleApprovalChange = (csId: string, status: 'approved' | 'rejected' | 'pending') => {
-    const updated = allCaseStudies.map((cs) => {
-      if (cs.id === csId) {
-        return {
-          ...cs,
-          approvalStatus: status,
-          verifiedBadge: status === 'approved',
-        };
-      }
-      return cs;
-    });
-    persistCaseStudies(updated);
-    showToast(`Status updated to ${status.toUpperCase()} for submission.`);
+    showToast(`✓ Field photo "${newCs.title}" saved only in this browser.`);
   };
 
   // Handle delete
@@ -362,47 +351,19 @@ export const CaseStudiesView: React.FC<CaseStudiesViewProps> = ({
         <div className="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="space-y-1">
             <div className="flex items-center gap-2 text-amber-300 font-bold text-sm sm:text-base">
-              <Camera className="w-4 h-4" /> User & Contractor Submitted Jobsite Gallery
+              <Camera className="w-4 h-4" /> Browser-Local Jobsite Drafts
             </div>
             <p className="text-xs text-slate-300">
-              Photos snapped live on-site with device cameras, watermarked with QA timestamp, and submitted for architectural verification and approval.
+              Photos saved here remain in this browser. They are not uploaded, published, independently verified, or sent for architectural review.
             </p>
           </div>
 
           <div className="flex items-center gap-2 shrink-0">
-            {/* Approval Filter Buttons */}
-            <div className="flex items-center bg-slate-950 p-1 rounded-xl border border-slate-800 text-[11px]">
-              <button
-                onClick={() => setApprovalFilter('all')}
-                className={`px-2.5 py-1 rounded-lg font-bold transition-colors ${
-                  approvalFilter === 'all' ? 'bg-slate-800 text-white' : 'text-slate-400 hover:text-slate-200'
-                }`}
-              >
-                All
-              </button>
-              <button
-                onClick={() => setApprovalFilter('approved')}
-                className={`px-2.5 py-1 rounded-lg font-bold transition-colors ${
-                  approvalFilter === 'approved' ? 'bg-emerald-500 text-slate-950' : 'text-emerald-400 hover:text-emerald-300'
-                }`}
-              >
-                Approved
-              </button>
-              <button
-                onClick={() => setApprovalFilter('pending')}
-                className={`px-2.5 py-1 rounded-lg font-bold transition-colors ${
-                  approvalFilter === 'pending' ? 'bg-amber-500 text-slate-950' : 'text-amber-400 hover:text-amber-300'
-                }`}
-              >
-                Pending
-              </button>
-            </div>
-
             <button
               onClick={() => setIsCameraModalOpen(true)}
               className="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shadow-md shadow-amber-500/20 flex items-center gap-1.5"
             >
-              <Plus className="w-3.5 h-3.5" /> Snap New Photo
+              <Plus className="w-3.5 h-3.5" /> Save New Local Draft
             </button>
           </div>
         </div>
@@ -636,7 +597,6 @@ export const CaseStudiesView: React.FC<CaseStudiesViewProps> = ({
               caseStudy={cs}
               onSelect={(project) => setSelectedCaseStudy(project)}
               onRequestBid={(project) => onRequestBid(project)}
-              onApprovalChange={(csId, status) => handleApprovalChange(csId, status)}
               onDelete={(csId) => handleDeleteCaseStudy(csId)}
               onCalculateSimilar={(project) => {
                 if (onNavigateToCalculator && project.thicknessInches && project.rValueNum) {
