@@ -62,6 +62,7 @@ export const ProjectQuoteModal: React.FC<ProjectQuoteModalProps> = ({
 
   const [submitting, setSubmitting] = useState(false);
   const [submittedTrackingId, setSubmittedTrackingId] = useState<string | null>(null);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   useEffect(() => {
     if (initialEstimateDetails) {
@@ -102,6 +103,7 @@ export const ProjectQuoteModal: React.FC<ProjectQuoteModalProps> = ({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
+    setSubmitError(null);
 
     try {
       const payload = {
@@ -123,10 +125,17 @@ export const ProjectQuoteModal: React.FC<ProjectQuoteModalProps> = ({
       });
 
       const data = await res.json();
-      setSubmittedTrackingId(data.trackingId || `MNG-${Math.floor(100000 + Math.random() * 900000)}`);
+      if (!res.ok || !data.success || !data.trackingId) {
+        throw new Error(data.error || 'Online bid dispatch is unavailable.');
+      }
+      setSubmittedTrackingId(data.trackingId);
     } catch (err) {
       console.error('Failed to submit quote:', err);
-      setSubmittedTrackingId(`MNG-${Math.floor(100000 + Math.random() * 900000)}`);
+      setSubmitError(
+        err instanceof Error
+          ? err.message
+          : 'Online bid dispatch is unavailable. Email build@buildershaus.com to submit your enquiry.'
+      );
     } finally {
       setSubmitting(false);
     }
@@ -192,6 +201,14 @@ export const ProjectQuoteModal: React.FC<ProjectQuoteModalProps> = ({
         ) : (
           /* RFP Form */
           <form onSubmit={handleSubmit} className="space-y-4 text-xs">
+            {submitError && (
+              <div role="alert" className="rounded-xl border border-amber-500/40 bg-amber-500/10 p-4 text-sm text-amber-100">
+                {submitError}{' '}
+                <a className="font-bold underline" href="mailto:build@buildershaus.com?subject=Monoglass%20project%20enquiry">
+                  Email BuildersHaus
+                </a>
+              </div>
+            )}
             {/* Contact Person Details */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>

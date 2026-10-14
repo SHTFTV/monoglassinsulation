@@ -618,7 +618,7 @@ export const ContractorDirectoryView: React.FC<ContractorDirectoryViewProps> = (
               </span>
             </div>
             <p className="text-xs sm:text-sm text-slate-300 max-w-2xl leading-relaxed">
-              Order physical cured Monoglass White & Black specimens, Sonoglaze hard-coat pucks, substrate adhesion mockups, and bound CSI 07 21 29 submittal binders shipped directly to your architecture or engineering firm.
+              Prepare a local sample-kit request draft for Monoglass White & Black specimens, Sonoglaze hard-coat pucks, substrate adhesion mockups, and CSI 07 21 29 submittal binders. This tool does not send or fulfill the request.
             </p>
           </div>
         </div>
@@ -628,7 +628,7 @@ export const ContractorDirectoryView: React.FC<ContractorDirectoryViewProps> = (
           className="px-6 py-3 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 text-xs sm:text-sm font-bold shadow-lg shadow-sky-500/20 active:scale-95 transition-all shrink-0 flex items-center gap-2"
         >
           <Package className="w-4 h-4" />
-          <span>Request Sample Box</span>
+          <span>Prepare Sample Request</span>
         </button>
       </section>
 

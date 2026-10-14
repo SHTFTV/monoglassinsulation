@@ -257,25 +257,19 @@ app.get('/api/share-project/:id', (req, res) => {
   }
 });
 
-// API route for contractor bid/quote dispatch logging
+// Quote dispatch is not connected to a durable delivery service yet.
 app.post('/api/quotes', (req, res) => {
-  const quoteData = req.body;
-  console.log('New Monoglass Bid Request received:', quoteData);
-  return res.json({
-    success: true,
-    trackingId: `MNG-${Date.now().toString().slice(-6)}`,
-    message: 'Project quote request dispatched to matched certified Monoglass spray contractors.',
+  return res.status(503).json({
+    success: false,
+    error: 'Online bid dispatch is not currently connected. Email build@buildershaus.com to submit your project enquiry.',
   });
 });
 
-// API route for contractor directory self-registration
+// Directory registration is not connected to a durable intake service yet.
 app.post('/api/contractor-register', (req, res) => {
-  const contractor = req.body;
-  console.log('New Contractor Directory Registration received:', contractor);
-  return res.json({
-    success: true,
-    applicationId: `APP-${Date.now().toString().slice(-6)}`,
-    message: 'Contractor application submitted for verification and directory inclusion.',
+  return res.status(503).json({
+    success: false,
+    error: 'Online directory registration is not currently connected. Email build@buildershaus.com to apply.',
   });
 });
 

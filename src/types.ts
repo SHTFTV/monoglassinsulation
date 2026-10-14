@@ -643,7 +643,7 @@ export interface MaterialSampleRequest {
   id: string;
   trackingNumber: string;
   requestDate: string; // ISO date string
-  status: 'Received' | 'Assembling Kit' | 'Dispatched via Express' | 'Delivered';
+  status: 'Draft' | 'Received' | 'Assembling Kit' | 'Dispatched via Express' | 'Delivered';
   kitType: SampleKitType;
   kitTitle: string;
   requestedSpecimens: string[];

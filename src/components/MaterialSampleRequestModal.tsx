@@ -197,7 +197,7 @@ export const MaterialSampleRequestModal: React.FC<MaterialSampleRequestModalProp
       id: `req-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`,
       trackingNumber,
       requestDate: new Date().toISOString(),
-      status: 'Received',
+      status: 'Draft',
       kitType: selectedKit,
       kitTitle: kitDef.title,
       requestedSpecimens: kitDef.items,
@@ -336,9 +336,9 @@ export const MaterialSampleRequestModal: React.FC<MaterialSampleRequestModalProp
               </div>
 
               <div className="space-y-2 max-w-lg mx-auto">
-                <h3 className="text-xl font-bold text-white">Sample Kit Request Dispatched!</h3>
+                <h3 className="text-xl font-bold text-white">Sample Kit Draft Saved Locally</h3>
                 <p className="text-xs sm:text-sm text-slate-300">
-                  Your physical Monoglass sample package has been queued for warehouse assembly. Tracking and shipping details have been securely logged in your local workspace.
+                  Your sample-kit details are saved only in this browser. No request was sent, and no warehouse assembly or shipping has been scheduled.
                 </p>
               </div>
 
@@ -346,11 +346,11 @@ export const MaterialSampleRequestModal: React.FC<MaterialSampleRequestModalProp
               <div className="bg-slate-950 border border-slate-800 rounded-2xl p-5 max-w-xl mx-auto text-left space-y-4 shadow-xl">
                 <div className="flex items-center justify-between border-b border-slate-800/80 pb-3">
                   <div>
-                    <div className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Tracking Code</div>
+                    <div className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Local Reference Code</div>
                     <div className="text-sm font-mono font-bold text-sky-400">{submittedRequest.trackingNumber}</div>
                   </div>
                   <span className="px-2.5 py-1 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 text-xs font-semibold flex items-center gap-1">
-                    <Truck className="w-3.5 h-3.5" /> {submittedRequest.status}
+                    <FileText className="w-3.5 h-3.5" /> {submittedRequest.status}
                   </span>
                 </div>
 
@@ -378,7 +378,7 @@ export const MaterialSampleRequestModal: React.FC<MaterialSampleRequestModalProp
                     <p className="font-semibold text-white mt-0.5">{submittedRequest.projectName}</p>
                   </div>
                   <div>
-                    <span className="text-slate-400">Dispatch Speed:</span>
+                    <span className="text-slate-400">Preferred Shipping Speed:</span>
                     <p className="font-semibold text-sky-300 mt-0.5">{submittedRequest.urgency}</p>
                   </div>
                 </div>
@@ -401,7 +401,7 @@ export const MaterialSampleRequestModal: React.FC<MaterialSampleRequestModalProp
                   onClick={resetForm}
                   className="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold transition-colors"
                 >
-                  Request Another Sample Kit
+                  Save Another Sample Draft
                 </button>
                 <button
                   onClick={onClose}
@@ -417,20 +417,20 @@ export const MaterialSampleRequestModal: React.FC<MaterialSampleRequestModalProp
               <div className="flex items-center justify-between">
                 <h4 className="text-sm font-bold text-white flex items-center gap-2">
                   <Clock className="w-4 h-4 text-sky-400" />
-                  <span>Your Sample Kit Requests History</span>
+                  <span>Your Saved Sample Kit Drafts</span>
                 </h4>
                 <button
                   onClick={() => setActiveTab('request')}
                   className="text-xs font-bold text-sky-400 hover:text-sky-300"
                 >
-                  + Request New Kit
+                  + New Local Draft
                 </button>
               </div>
 
               {savedRequests.length === 0 ? (
                 <div className="text-center py-12 bg-slate-950 border border-slate-800 rounded-2xl p-6 space-y-3">
                   <Package className="w-10 h-10 text-slate-600 mx-auto" />
-                  <p className="text-xs text-slate-400">No previous sample kit requests found in your local storage.</p>
+                  <p className="text-xs text-slate-400">No saved sample-kit drafts were found in this browser.</p>
                 </div>
               ) : (
                 <div className="space-y-3">
@@ -485,6 +485,9 @@ export const MaterialSampleRequestModal: React.FC<MaterialSampleRequestModalProp
           ) : (
             /* NEW SAMPLE REQUEST FORM */
             <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="rounded-xl border border-sky-500/30 bg-sky-500/10 p-4 text-xs text-sky-100">
+                This form saves a draft in this browser only. It does not send the request, reserve inventory, or schedule shipping.
+              </div>
               {errorMsg && (
                 <div className="bg-rose-500/15 border border-rose-500/30 text-rose-300 px-4 py-2.5 rounded-xl text-xs flex items-center gap-2">
                   <Info className="w-4 h-4 shrink-0" />
@@ -827,12 +830,12 @@ export const MaterialSampleRequestModal: React.FC<MaterialSampleRequestModalProp
                   {isSubmitting ? (
                     <>
                       <div className="w-4 h-4 border-2 border-slate-950 border-t-transparent rounded-full animate-spin" />
-                      <span>Processing Request...</span>
+                      <span>Saving Draft...</span>
                     </>
                   ) : (
                     <>
                       <Package className="w-4 h-4" />
-                      <span>Submit Sample Kit Request</span>
+                      <span>Save Sample Kit Draft Locally</span>
                     </>
                   )}
                 </button>
