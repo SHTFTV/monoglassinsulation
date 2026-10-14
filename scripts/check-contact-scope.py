@@ -1,21 +1,31 @@
-"""Run before deployment: cards must belong to explicit city assignments."""
+"""Run before deployment: cards must belong to explicit city or article assignments."""
 from pathlib import Path
 import json
-root=Path(__file__).resolve().parents[1]/'public'
-config=json.loads((root/'city-contractor-assignments.json').read_text())
-assignments={**config['cityAssignments'],**config.get('articleAssignments',{})}
-for page in root.rglob('index.html'):
- route='/'+str(page.relative_to(root)).replace('index.html','')
- text=page.read_text();assigned=assignments.get(route)
- assert ('class="business-floater"' in text)==bool(assigned),f'Incorrect card scope: {route}'
+root = Path(__file__).resolve().parents[1] / 'public'
+config = json.loads((root / 'city-contractor-assignments.json').read_text())
+assignments = {**config['cityAssignments'], **config.get('articleAssignments', {})}
+html_pages = list(root.rglob('*.html'))
+
+def route_for(page):
+ relative = str(page.relative_to(root))
+ return '/' + relative.replace('index.html', '')
+
+for page in html_pages:
+ route = route_for(page)
+ text = page.read_text()
+ assigned = assignments.get(route)
  if assigned:
   provider=config['providers'][assigned]
+  assert 'class="business-floater"' in text,f'Missing assigned card: {route}'
   assert 'mailto:'+provider['email'] in text and 'tel:'+provider['phone'] in text,route
-print('Contact cards match explicit city and project-article assignments; general pages have no contractor floater.')
+ else:
+  assert 'class="business-floater"' not in text,f'Unassigned business card: {route}'
+  assert '<details class="contact"' not in text,f'Unassigned contact card: {route}'
+print('Contact cards and provider details match explicit city and project-article assignments across all HTML pages.')
 
-for page in root.rglob('index.html'):
+for page in html_pages:
     text=page.read_text()
-    route='/'+str(page.relative_to(root)).replace('index.html','')
+    route=route_for(page)
     if route not in assignments:
         assert 'Independent insulation planning information for the Lower Mainland.' not in text, f'Regional site identity: {page}'
         assert 'Discuss your project with Performance' not in text, f'Client CTA on general page: {route}'
