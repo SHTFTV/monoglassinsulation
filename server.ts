@@ -192,69 +192,20 @@ Structure the answer with:
   }
 });
 
-// In-memory store for project sharing across team members
-interface SharedProjectRecord {
-  id: string;
-  project: any;
-  sharedBy?: string;
-  accessMode?: string;
-  createdAt: string;
-  viewCount: number;
-}
-const sharedProjectsStore = new Map<string, SharedProjectRecord>();
-
-// API route to create a shareable project record
+// Short share links require durable storage, which is not connected yet. The
+// client automatically falls back to its self-contained compressed URL.
 app.post('/api/share-project', (req, res) => {
-  try {
-    const { project, sharedBy, accessMode } = req.body;
-    if (!project || !project.name) {
-      return res.status(400).json({ error: 'Valid project data is required' });
-    }
-
-    const shareId = `MNG-${Math.random().toString(36).substring(2, 8).toUpperCase()}`;
-    const record: SharedProjectRecord = {
-      id: shareId,
-      project,
-      sharedBy: sharedBy || 'Anonymous Specifier',
-      accessMode: accessMode || 'collaborative',
-      createdAt: new Date().toISOString(),
-      viewCount: 0,
-    };
-
-    sharedProjectsStore.set(shareId, record);
-    console.log(`Saved shared project with ID ${shareId}: ${project.name}`);
-
-    return res.json({
-      success: true,
-      shareId,
-      shareUrl: `/?share=${shareId}`,
-      createdAt: record.createdAt,
-    });
-  } catch (err: any) {
-    console.error('Error creating share record:', err);
-    return res.status(500).json({ error: 'Failed to create share link' });
-  }
+  return res.status(503).json({
+    success: false,
+    error: 'Short-link storage is not connected. Use the self-contained project link instead.',
+  });
 });
 
-// API route to retrieve a shared project by ID
 app.get('/api/share-project/:id', (req, res) => {
-  try {
-    const { id } = req.params;
-    const record = sharedProjectsStore.get(id.toUpperCase());
-
-    if (!record) {
-      return res.status(404).json({ error: 'Shared project not found or expired' });
-    }
-
-    record.viewCount += 1;
-    return res.json({
-      success: true,
-      record,
-    });
-  } catch (err: any) {
-    console.error('Error fetching share record:', err);
-    return res.status(500).json({ error: 'Failed to fetch shared project' });
-  }
+  return res.status(503).json({
+    success: false,
+    error: 'Short-link storage is not connected. Use a self-contained project link instead.',
+  });
 });
 
 // Quote dispatch is not connected to a durable delivery service yet.
