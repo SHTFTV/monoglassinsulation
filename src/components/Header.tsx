@@ -49,7 +49,7 @@ export const Header: React.FC<HeaderProps> = ({
     { id: 'comparison', label: 'Material Comparison', icon: Layers },
     { id: 'spec-builder', label: 'CSI Spec Generator', icon: Shield, badge: '07 21 29' },
     { id: 'case-studies', label: 'Case Studies', icon: Building2 },
-    { id: 'directory', label: 'Find Contractors', icon: Users, badge: 'Verified' },
+    { id: 'directory', label: 'Contractor Directory', icon: Users, badge: 'Listings' },
     { id: 'faqs', label: 'FAQs', icon: HelpCircle, badge: 'Gemini AI' },
     { id: 'advisor', label: 'AI Code & Spec Advisor', icon: Sparkles },
   ];
@@ -119,7 +119,7 @@ export const Header: React.FC<HeaderProps> = ({
                 </span>
               </div>
               <p className="text-xs text-slate-400">
-                Technical Specification & Certified Applicator Directory
+                Technical Specification & Contractor Directory
               </p>
             </div>
           </div>

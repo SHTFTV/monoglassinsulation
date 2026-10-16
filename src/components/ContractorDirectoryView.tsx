@@ -217,13 +217,13 @@ export const ContractorDirectoryView: React.FC<ContractorDirectoryViewProps> = (
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
           <div className="space-y-3 max-w-2xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/10 border border-sky-500/20 text-sky-400 text-xs font-bold uppercase tracking-wider">
-              <UserCheck className="w-4 h-4" /> Certified Applicator Network & Map
+              <UserCheck className="w-4 h-4" /> Contractor Directory Review
             </div>
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight">
-              Find Certified Monoglass Spray Insulation Contractors
+              Monoglass Spray Insulation Contractor Directory
             </h1>
             <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
-              Geographically search verified commercial spray insulation contractors across North America & Europe equipped with high-output pneumatic spray rigs, quality control depth testing, and factory certification.
+              No contractor listings are currently published. Identity, contact details, certification, ratings, and project history must be supported before a listing appears here.
             </p>
           </div>
 
@@ -414,9 +414,9 @@ export const ContractorDirectoryView: React.FC<ContractorDirectoryViewProps> = (
             <div className="flex items-center justify-between px-1 text-xs text-slate-400">
               <span className="flex items-center gap-1.5 font-semibold text-slate-300">
                 <MapIcon className="w-4 h-4 text-sky-400" />
-                Interactive Spray Applicator Geo-Locator
+                Contractor Listing Map
               </span>
-              <span>Click pins to view contractor details or send direct bid specs</span>
+              <span>Only supported contractor listings will appear on this map</span>
             </div>
 
             <ContractorMap
@@ -433,7 +433,7 @@ export const ContractorDirectoryView: React.FC<ContractorDirectoryViewProps> = (
         {viewMode !== 'map' && (
           <div className="flex items-center justify-between text-xs text-slate-400 px-1 pt-2">
             <span>
-              Showing <strong className="text-white font-mono">{filteredContractorsWithDistance.length}</strong> certified applicators
+              Published listings: <strong className="text-white font-mono">{filteredContractorsWithDistance.length}</strong>
             </span>
             <button
               onClick={() => setIsSampleModalOpen(true)}
@@ -581,9 +581,9 @@ export const ContractorDirectoryView: React.FC<ContractorDirectoryViewProps> = (
             ) : (
               <div className="col-span-full bg-slate-900 border border-slate-800 rounded-2xl p-12 text-center space-y-4">
                 <Building2 className="w-12 h-12 text-slate-600 mx-auto" />
-                <h3 className="text-lg font-bold text-white">No exact contractor match found</h3>
+                <h3 className="text-lg font-bold text-white">No supported contractor listings published</h3>
                 <p className="text-sm text-slate-400 max-w-md mx-auto">
-                  We have additional regional spray contractor networks. Submit your project details and we will dispatch your specifications to certified contractors in your territory.
+                  The previous seed listings were removed because their identities, contact details, ratings, certification, and project histories were not supported. This directory does not claim global contractor coverage or route enquiries to an unpublished network.
                 </p>
                 <button
                   onClick={() => {
