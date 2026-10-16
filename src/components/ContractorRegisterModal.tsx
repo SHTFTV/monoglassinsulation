@@ -39,6 +39,7 @@ export const ContractorRegisterModal: React.FC<ContractorRegisterModalProps> = (
 
   const [submitting, setSubmitting] = useState(false);
   const [submittedAppId, setSubmittedAppId] = useState<string | null>(null);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   if (!isOpen) return null;
 
@@ -65,6 +66,7 @@ export const ContractorRegisterModal: React.FC<ContractorRegisterModalProps> = (
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
+    setSubmitError(null);
 
     try {
       const res = await fetch('/api/contractor-register', {
@@ -73,10 +75,17 @@ export const ContractorRegisterModal: React.FC<ContractorRegisterModalProps> = (
         body: JSON.stringify(formData),
       });
       const data = await res.json();
-      setSubmittedAppId(data.applicationId || `APP-${Math.floor(100000 + Math.random() * 900000)}`);
+      if (!res.ok || !data.success || !data.applicationId) {
+        throw new Error(data.error || 'Online directory registration is unavailable.');
+      }
+      setSubmittedAppId(data.applicationId);
     } catch (err) {
       console.error('Registration submit error:', err);
-      setSubmittedAppId(`APP-${Math.floor(100000 + Math.random() * 900000)}`);
+      setSubmitError(
+        err instanceof Error
+          ? err.message
+          : 'Online directory registration is unavailable. Email build@buildershaus.com to apply.'
+      );
     } finally {
       setSubmitting(false);
     }
@@ -135,6 +144,14 @@ export const ContractorRegisterModal: React.FC<ContractorRegisterModalProps> = (
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-4 text-xs">
+            {submitError && (
+              <div role="alert" className="rounded-xl border border-amber-500/40 bg-amber-500/10 p-4 text-sm text-amber-100">
+                {submitError}{' '}
+                <a className="font-bold underline" href="mailto:build@buildershaus.com?subject=Monoglass%20contractor%20application">
+                  Email BuildersHaus
+                </a>
+              </div>
+            )}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
                 <label className="block text-slate-300 font-bold uppercase tracking-wider mb-1">

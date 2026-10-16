@@ -271,7 +271,7 @@ export default function App() {
             Mobile Access & Interactive Architectural Tools:
           </div>
           <p className="text-[11px] text-slate-700 leading-relaxed">
-            Scan this QR code with any smartphone camera to access the live Monoglass web app. Calculate custom R-values and acoustic NRC ratings, locate certified spray applicators, request project bids, and generate downloadable CSI 3-part specifications.
+            Scan this QR code with any smartphone camera to access the live Monoglass web app. Calculate custom R-values and acoustic NRC ratings, review the contractor-directory status, prepare local project-request drafts, and generate downloadable CSI 3-part specifications.
           </p>
         </div>
 
@@ -391,7 +391,7 @@ export default function App() {
                   </span>
                 </div>
                 <p className="leading-relaxed">
-                  The definitive technical resource and certified spray contractor locator for Monoglass spray-applied glass fiber thermal and acoustical insulation.
+                  Technical planning tools and a contractor directory for Monoglass spray-applied glass fiber thermal and acoustical insulation. Listings are published only after supporting evidence is available.
                 </p>
                 <div className="flex items-center gap-2 text-emerald-400 font-semibold text-[11px]">
                   <CheckCircle2 className="w-3.5 h-3.5" /> ASTM E84 0/0 • ASTM E136 Non-Combustible
@@ -448,7 +448,7 @@ export default function App() {
                 <ul className="space-y-1.5">
                   <li>
                     <button onClick={() => setActiveTab('directory')} className="hover:text-white transition-colors">
-                      Find Certified Spray Applicators
+                      Contractor Directory Status
                     </button>
                   </li>
                   <li>
